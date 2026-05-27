@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { CollapsibleSection } from '../primitives/collapsible-section'
 import { useSignUpSheetContext } from './state/context'
 
-export type DateSectionProps = {
+export type SlotGroupProps = {
   /**
    * Stable DOM id for the section. Also used as the `aria-labelledby`
    * target for the section heading.
@@ -30,14 +30,14 @@ export type DateSectionProps = {
   className?: string
 }
 
-export function DateSection({
+export function SlotGroup({
   id,
   label,
   sectionCount,
   forceOpen,
   children,
   className
-}: DateSectionProps) {
+}: SlotGroupProps) {
   const { defaultExpandedMode, collapseThreshold } = useSignUpSheetContext()
 
   let defaultOpen: boolean
@@ -64,7 +64,7 @@ export function DateSection({
   return (
     <section
       id={id}
-      data-date-section
+      data-slot-group
       aria-labelledby={`${id}-label`}
       className={className ?? undefined}
     >
@@ -73,7 +73,7 @@ export function DateSection({
         summary={summary}
         summaryClassName="px-4 py-3 md:hidden"
       >
-        <div data-date-section-body>{children}</div>
+        <div data-slot-group-body>{children}</div>
       </CollapsibleSection>
     </section>
   )

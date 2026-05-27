@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { DateSection } from '../date-section'
+import { SlotGroup } from '../slot-group'
 import { SignUpSheetProvider } from '../state/sign-up-sheet-provider'
 
-describe('DateSection', () => {
+describe('SlotGroup', () => {
   it('opens by default in auto mode when sectionCount is at or under threshold', () => {
     render(
       <SignUpSheetProvider defaultExpandedMode="auto" collapseThreshold={5}>
-        <DateSection id="d1" label="Saturday" sectionCount={3}>
+        <SlotGroup id="d1" label="Saturday" sectionCount={3}>
           <p>body</p>
-        </DateSection>
+        </SlotGroup>
       </SignUpSheetProvider>
     )
     const details = screen
@@ -22,9 +22,9 @@ describe('DateSection', () => {
   it('stays closed by default in auto mode when sectionCount exceeds threshold', () => {
     render(
       <SignUpSheetProvider defaultExpandedMode="auto" collapseThreshold={5}>
-        <DateSection id="d1" label="Saturday" sectionCount={8}>
+        <SlotGroup id="d1" label="Saturday" sectionCount={8}>
           <p>body</p>
-        </DateSection>
+        </SlotGroup>
       </SignUpSheetProvider>
     )
     const details = screen
@@ -36,9 +36,9 @@ describe('DateSection', () => {
   it('forces open when defaultExpandedMode is "all"', () => {
     render(
       <SignUpSheetProvider defaultExpandedMode="all" collapseThreshold={1}>
-        <DateSection id="d1" label="Saturday" sectionCount={100}>
+        <SlotGroup id="d1" label="Saturday" sectionCount={100}>
           <p>body</p>
-        </DateSection>
+        </SlotGroup>
       </SignUpSheetProvider>
     )
     const details = screen
@@ -50,9 +50,9 @@ describe('DateSection', () => {
   it('forces closed when defaultExpandedMode is "none"', () => {
     render(
       <SignUpSheetProvider defaultExpandedMode="none" collapseThreshold={100}>
-        <DateSection id="d1" label="Saturday" sectionCount={1}>
+        <SlotGroup id="d1" label="Saturday" sectionCount={1}>
           <p>body</p>
-        </DateSection>
+        </SlotGroup>
       </SignUpSheetProvider>
     )
     const details = screen

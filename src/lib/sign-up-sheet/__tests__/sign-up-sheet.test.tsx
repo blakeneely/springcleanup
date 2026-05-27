@@ -6,8 +6,8 @@ import { describe, expect, it, vi } from 'vitest'
 import type { CurrentUser } from '../../primitives/types'
 import { SheetHeader } from '../sheet-header'
 import { SignUpSheet } from '../sign-up-sheet'
-import { SlotRow } from '../slot-row'
-import type { SlotColumn } from '../slot-row'
+import { Slot } from '../slot'
+import type { SlotColumn } from '../slot'
 import { SlotTable } from '../slot-table'
 import { SignUpSheetProvider } from '../state/sign-up-sheet-provider'
 import type {
@@ -361,7 +361,7 @@ describe('SignUpSheet - compound API parity', () => {
         <SheetHeader title={data.title} />
         <SlotTable columns={SLOT_COLUMNS} ariaLabel={data.title}>
           {data.slots.map(slot => (
-            <SlotRow key={slot.id} slot={slot} columns={SLOT_COLUMNS} />
+            <Slot key={slot.id} slot={slot} columns={SLOT_COLUMNS} />
           ))}
         </SlotTable>
       </SignUpSheetProvider>

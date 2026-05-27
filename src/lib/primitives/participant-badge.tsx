@@ -1,11 +1,11 @@
 import { Avatar } from './avatar'
 import type { Participant } from './types'
 
-export type ParticipantChipProps = {
+export type ParticipantBadgeProps = {
   /** The person to render. */
   participant: Participant
   /**
-   * When true, the chip is highlighted with the accent ring, shows the
+   * When true, the badge is highlighted with the accent ring, shows the
    * `youLabel` instead of the real name, and announces `aria-current`.
    */
   isCurrent?: boolean
@@ -14,16 +14,16 @@ export type ParticipantChipProps = {
    * Default `'You'`. Useful for i18n (e.g. `'Tú'`).
    */
   youLabel?: string
-  /** Optional extra classes applied to the chip. */
+  /** Optional extra classes applied to the badge. */
   className?: string
 }
 
-export function ParticipantChip({
+export function ParticipantBadge({
   participant,
   isCurrent = false,
   youLabel = 'You',
   className
-}: ParticipantChipProps) {
+}: ParticipantBadgeProps) {
   const quantity = participant.quantity ?? 1
   const quantitySuffix = quantity > 1 ? ` (${String(quantity)})` : ''
   const visibleName = isCurrent

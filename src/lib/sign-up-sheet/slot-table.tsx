@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import type { SlotColumn } from './slot-row'
+import type { SlotColumn } from './slot'
 
 export type SlotTableProps = {
   /**
@@ -15,7 +15,7 @@ export type SlotTableProps = {
    * back to the English default (e.g. `"Date"`, `"Available Slot"`).
    */
   headers?: Partial<Record<SlotColumn, string>>
-  /** `<SlotRow>` children that make up the table body. */
+  /** `<Slot>` children that make up the table body. */
   children: ReactNode
   /** Optional extra classes applied to the table wrapper. */
   className?: string

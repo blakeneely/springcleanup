@@ -1,6 +1,6 @@
 import { SheetHeader } from '../sheet-header'
-import { SlotRow } from '../slot-row'
-import type { SlotColumn } from '../slot-row'
+import { Slot } from '../slot'
+import type { SlotColumn } from '../slot'
 import { SlotTable } from '../slot-table'
 import { useSignUpSheetContext } from '../state/context'
 import type { SlotsOnlySheet } from '../types'
@@ -28,7 +28,7 @@ export function SlotsOnlyLayout({ data, className }: SlotsOnlyLayoutProps) {
       ) : (
         <SlotTable columns={COLUMNS} ariaLabel={data.title}>
           {data.slots.map(slot => (
-            <SlotRow key={slot.id} slot={slot} columns={COLUMNS} />
+            <Slot key={slot.id} slot={slot} columns={COLUMNS} />
           ))}
         </SlotTable>
       )}

@@ -7,7 +7,7 @@ export type { CapacityPillMessages, CapacityPillProps } from './capacity-pill'
 export { CollapsibleSection } from './collapsible-section'
 export type { CollapsibleSectionProps } from './collapsible-section'
 
-export { ParticipantChip } from './participant-chip'
-export type { ParticipantChipProps } from './participant-chip'
+export { ParticipantBadge } from './participant-badge'
+export type { ParticipantBadgeProps } from './participant-badge'
 
 export type { CurrentUser, Participant } from './types'

@@ -1,8 +1,8 @@
-import { DateSection } from '../date-section'
 import { format } from '../messages/format'
 import { SheetHeader } from '../sheet-header'
-import { SlotRow } from '../slot-row'
-import type { SlotColumn } from '../slot-row'
+import { Slot } from '../slot'
+import type { SlotColumn } from '../slot'
+import { SlotGroup } from '../slot-group'
 import { SlotTable } from '../slot-table'
 import { useSignUpSheetContext } from '../state/context'
 import type { SortByDateSheet } from '../types'
@@ -30,7 +30,7 @@ export function SortByDateLayout({ data, className }: SortByDateLayoutProps) {
         </p>
       ) : (
         data.slotGroups.map(group => (
-          <DateSection
+          <SlotGroup
             key={group.id}
             id={group.id}
             label={group.label}
@@ -43,11 +43,11 @@ export function SortByDateLayout({ data, className }: SortByDateLayoutProps) {
             ) : (
               <SlotTable columns={COLUMNS} ariaLabel={group.label}>
                 {group.slots.map(slot => (
-                  <SlotRow key={slot.id} slot={slot} columns={COLUMNS} />
+                  <Slot key={slot.id} slot={slot} columns={COLUMNS} />
                 ))}
               </SlotTable>
             )}
-          </DateSection>
+          </SlotGroup>
         ))
       )}
     </div>

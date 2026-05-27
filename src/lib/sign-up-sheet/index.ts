@@ -1,17 +1,17 @@
-export { DateSection } from './date-section'
-export type { DateSectionProps } from './date-section'
-
 export { SheetHeader } from './sheet-header'
 export type { SheetHeaderProps } from './sheet-header'
 
 export { SignUpSheet } from './sign-up-sheet'
 export type { SignUpSheetProps } from './sign-up-sheet'
 
+export { Slot } from './slot'
+export type { SlotColumn, SlotProps } from './slot'
+
 export { SlotAction } from './slot-action'
 export type { SlotActionProps } from './slot-action'
 
-export { SlotRow } from './slot-row'
-export type { SlotColumn, SlotRowProps } from './slot-row'
+export { SlotGroup } from './slot-group'
+export type { SlotGroupProps } from './slot-group'
 
 export { SlotTable } from './slot-table'
 export type { SlotTableProps } from './slot-table'

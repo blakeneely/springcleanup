@@ -1,10 +1,10 @@
 import type { SlotColumn, Theme } from '@component-library/sign-up-sheet'
 import {
-  DateSection,
   SheetHeader,
   SignUpSheet,
   SignUpSheetProvider,
-  SlotRow,
+  Slot,
+  SlotGroup,
   SlotTable,
   useSignUpSheetState
 } from '@component-library/sign-up-sheet'
@@ -215,7 +215,7 @@ function CompoundApiCard() {
               title={state.data.title}
               description={state.data.description}
             />
-            <DateSection
+            <SlotGroup
               id="compound-group"
               label="Walk-up volunteers"
               forceOpen
@@ -225,14 +225,14 @@ function CompoundApiCard() {
                 ariaLabel="Walk-up volunteers"
               >
                 {state.data.slots.map(slot => (
-                  <SlotRow
+                  <Slot
                     key={slot.id}
                     slot={slot}
                     columns={COMPOUND_COLUMNS}
                   />
                 ))}
               </SlotTable>
-            </DateSection>
+            </SlotGroup>
           </div>
         </SignUpSheetProvider>
       </div>

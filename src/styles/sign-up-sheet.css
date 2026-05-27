@@ -1,8 +1,8 @@
 /*
  * Sign-up-sheet recipe layout rules that don't fit Tailwind utilities.
  * Two concerns:
- *  - SlotTable / SlotRow flip from stacked cards (mobile) to a real CSS Grid
- *    table on desktop (≥768px). SlotRow uses `display: contents` so its
+ *  - SlotTable / Slot flip from stacked cards (mobile) to a real CSS Grid
+ *    table on desktop (≥768px). Slot uses `display: contents` so its
  *    child cells flow as direct grid items into the parent's columns.
  *  - Cells own their own padding and bottom border to form the visual row;
  *    the last row clears that border via a sibling selector.
@@ -26,11 +26,11 @@
     grid-template-columns: 1fr;
   }
 
-  [data-slot-row] {
+  [data-slot] {
     display: contents;
   }
 
-  [data-slot-row] > [data-slot-cell] {
+  [data-slot] > [data-slot-cell] {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--color-border);
     background: var(--color-surface-elevated);
@@ -38,22 +38,22 @@
   }
 
   [data-sign-up-sheet-layout='sort-by-date']
-    [data-date-section]:last-of-type
-    [data-slot-row]:last-child
+    [data-slot-group]:last-of-type
+    [data-slot]:last-child
     > [data-slot-cell],
   [data-sign-up-sheet-layout='slots-only']
-    [data-slot-row]:last-child
+    [data-slot]:last-child
     > [data-slot-cell] {
     border-bottom: 0;
   }
 
   /*
-   * When multiple DateSections render in a sort-by-date layout, only the
+   * When multiple SlotGroups render in a sort-by-date layout, only the
    * first one shows the column header; subsequent ones suppress it so the
    * stacked tables read as one continuous table.
    */
   [data-sign-up-sheet-layout='sort-by-date']
-    [data-date-section]:not(:first-of-type)
+    [data-slot-group]:not(:first-of-type)
     [data-slot-table-header] {
     display: none;
   }

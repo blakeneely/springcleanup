@@ -1,7 +1,7 @@
 import { useCallback, useId, useMemo, useState } from 'react'
 
 import { CapacityPill } from '../primitives/capacity-pill'
-import { ParticipantChip } from '../primitives/participant-chip'
+import { ParticipantBadge } from '../primitives/participant-badge'
 import { format } from './messages/format'
 import { SlotAction } from './slot-action'
 import { useSignUpSheetContext } from './state/context'
@@ -10,22 +10,22 @@ import type { SlotData } from './types'
 
 export type SlotColumn = 'date' | 'location' | 'time' | 'slot'
 
-export type SlotRowProps = {
-  /** Slot data driving the row's label, capacity, and participant chips. */
+export type SlotProps = {
+  /** Slot data driving the row's label, capacity, and participant badges. */
   slot: SlotData
   /**
-   * Which cells this row renders, in order. Must match the parent
+   * Which cells this slot renders, in order. Must match the parent
    * `<SlotTable>`'s `columns` so the grid alignment lines up.
    */
   columns: readonly SlotColumn[]
-  /** Optional extra classes applied to the `<li>` row. */
+  /** Optional extra classes applied to the `<li>` element. */
   className?: string
 }
 
 const MOBILE_CELL_CLASS =
   'block px-4 py-2 md:px-4 md:py-3 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-border md:[&:not(:last-child)]:border-b-0'
 
-export function SlotRow({ slot, columns, className }: SlotRowProps) {
+export function Slot({ slot, columns, className }: SlotProps) {
   const { currentUser, messages, maxVisibleParticipants } =
     useSignUpSheetContext()
   const [expanded, setExpanded] = useState(false)
@@ -124,7 +124,7 @@ export function SlotRow({ slot, columns, className }: SlotRowProps) {
                   >
                     {visibleParticipants.map(p => (
                       <li key={p.id}>
-                        <ParticipantChip
+                        <ParticipantBadge
                           participant={p}
                           isCurrent={
                             currentUser ? p.id === currentUser.id : false
@@ -163,7 +163,7 @@ export function SlotRow({ slot, columns, className }: SlotRowProps) {
 
   return (
     <li
-      data-slot-row
+      data-slot
       data-slot-id={slot.id}
       className={`block border-b border-border last:border-b-0 md:border-b-0 ${className ?? ''}`}
     >

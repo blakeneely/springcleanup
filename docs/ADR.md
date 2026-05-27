@@ -4,8 +4,10 @@
 
 The library ships in two layers:
 
-- **`primitives`** — `Avatar`, `CapacityPill`, `ParticipantChip`, `CollapsibleSection`. Domain-agnostic and reusable beyond sign-up sheets. The folder has zero imports from `sign-up-sheet`, so the boundary is architectural rather than aspirational.
-- **`sign-up-sheet`** — the recipe. Composes primitives with sheet-specific pieces (`SheetHeader`, `SlotTable`, `SlotRow`, `SlotAction`, `DateSection`, `TimeHeader`) into layout containers wired through a shared provider.
+- **`primitives`** — `Avatar`, `CapacityPill`, `ParticipantBadge`, `CollapsibleSection`. Domain-agnostic and reusable beyond sign-up sheets. The folder has zero imports from `sign-up-sheet`, so the boundary is architectural rather than aspirational.
+- **`sign-up-sheet`** — the recipe. Composes primitives with sheet-specific pieces (`SheetHeader`, `SlotTable`, `Slot`, `SlotAction`, `SlotGroup`, `TimeHeader`) into layout containers wired through a shared provider.
+
+The five components the brief calls out — `<SignUpSheet>`, `<SlotGroup>`, `<Slot>`, `<SlotAction>`, `<ParticipantBadge>` — are all top-level exports under those names.
 
 The 99% case is one component:
 
@@ -70,7 +72,7 @@ One **parity test** is the safety net for the dual API. `sign-up-sheet.test.tsx`
 
 The **hook gets integration-style coverage in its own right.** `use-sign-up-sheet-state` is part of the public API, and its pending/error contract is what the rest of the library leans on, so it has ~330 lines of coverage including async edges: rapid taps on the same slot, simulated error rates, in-flight short-circuiting when the caller forgets to disable the button.
 
-**What's deliberately not tested.** Layout components have an `__tests__/` folder but no tests — they're thin compositions of components that already have coverage, and the parity test exercises them through the dispatcher. No visual regression (Chromatic / Loki belong with multi-team ownership — see section 5). No CSS / theming snapshots — tokens swap via `data-theme` attributes, so behaviour is the contract and the palette isn't.
+**What's deliberately not tested.** Layout components have no unit tests — they're thin compositions of components that already have coverage, and the parity test exercises them through the dispatcher. No visual regression (Chromatic / Loki belong with multi-team ownership — see section 5). No CSS / theming snapshots — tokens swap via `data-theme` attributes, so behaviour is the contract and the palette isn't.
 
 **Rejected:** snapshot tests as a baseline (brittle, encourage rubber-stamp updates on every legitimate change); mocking the hook inside component tests (lets the component and the hook drift apart silently); asserting against internal context values (locks the implementation, not the contract).
 

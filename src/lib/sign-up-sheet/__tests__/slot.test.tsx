@@ -4,8 +4,8 @@ import type { ReactNode } from 'react'
 import { describe, expect, it } from 'vitest'
 
 import type { CurrentUser, Participant } from '../../primitives/types'
-import { SlotRow } from '../slot-row'
-import type { SlotColumn } from '../slot-row'
+import { Slot } from '../slot'
+import type { SlotColumn } from '../slot'
 import { SlotTable } from '../slot-table'
 import { SignUpSheetProvider } from '../state/sign-up-sheet-provider'
 import type { SlotData } from '../types'
@@ -46,12 +46,12 @@ function Harness({
 const ALL_COLUMNS: readonly SlotColumn[] = ['date', 'location', 'time', 'slot']
 const SLOT_ONLY: readonly SlotColumn[] = ['slot']
 
-describe('SlotRow', () => {
+describe('Slot', () => {
   it('renders the slot label and description in the slot column', () => {
     render(
       <Harness currentUser={user}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({
               label: 'Bring chairs',
               description: 'Folding ones, please'
@@ -69,7 +69,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user}>
         <SlotTable columns={ALL_COLUMNS}>
-          <SlotRow
+          <Slot
             slot={makeSlot({
               date: 'Apr 12',
               weekday: 'Saturday',
@@ -95,7 +95,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user} maxVisibleParticipants={6}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({ capacity: 20, participants })}
             columns={SLOT_ONLY}
           />
@@ -116,7 +116,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user} maxVisibleParticipants={6}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({ capacity: 20, participants })}
             columns={SLOT_ONLY}
           />
@@ -147,7 +147,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user} maxVisibleParticipants={6}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({ capacity: 20, participants })}
             columns={SLOT_ONLY}
           />
@@ -164,7 +164,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user} maxVisibleParticipants={6}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({
               participants: [{ id: 'a', name: 'Anna' }]
             })}
@@ -182,7 +182,7 @@ describe('SlotRow', () => {
     render(
       <Harness currentUser={user}>
         <SlotTable columns={SLOT_ONLY}>
-          <SlotRow
+          <Slot
             slot={makeSlot({
               capacity: 4,
               participants: [
@@ -206,7 +206,7 @@ describe('SlotTable', () => {
     render(
       <Harness currentUser={user}>
         <SlotTable columns={ALL_COLUMNS}>
-          <SlotRow slot={makeSlot()} columns={ALL_COLUMNS} />
+          <Slot slot={makeSlot()} columns={ALL_COLUMNS} />
         </SlotTable>
       </Harness>
     )
