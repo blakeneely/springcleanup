@@ -61,7 +61,7 @@ export type SlotsOnlySheet = {
 export type SignUpSheetData = SortByDateSheet | SlotsOnlySheet
 
 /** Named theme - selects a set of `[data-theme="..."]` token values. */
-export type Theme = 'light' | 'dark' | 'mando' | 'boba'
+export type Theme = 'default' | 'bluey' | 'mando' | 'boba'
 
 /**
  * Per-sheet token overrides applied as inline CSS custom properties.
@@ -85,6 +85,10 @@ export type ThemeOverride = {
   accent?: string
   /** `--color-accent-fg` */
   accentFg?: string
+  /** `--color-marker` — bg for small recurring badges like the capacity pill. */
+  marker?: string
+  /** `--color-marker-fg` — text/icon color on `marker`. */
+  markerFg?: string
   /** `--color-success` */
   success?: string
   /** `--color-danger` */

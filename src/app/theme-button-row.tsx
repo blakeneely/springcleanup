@@ -1,14 +1,14 @@
 import type { Theme } from '@component-library/sign-up-sheet'
 import { useCallback } from 'react'
 
-const AVAILABLE_THEMES: readonly Theme[] = ['light', 'dark', 'mando', 'boba']
+const AVAILABLE_THEMES: readonly Theme[] = ['default', 'bluey', 'mando', 'boba']
 
 function themeLabel(theme: Theme): string {
   switch (theme) {
-    case 'light':
-      return 'Light'
-    case 'dark':
-      return 'Dark'
+    case 'default':
+      return 'Default'
+    case 'bluey':
+      return 'Bluey'
     case 'mando':
       return 'Mando'
     case 'boba':
@@ -27,8 +27,8 @@ function ThemeButton({ theme, active, onChange }: ThemeButtonProps) {
     onChange(theme)
   }, [onChange, theme])
   const className = active
-    ? 'rounded-md border border-accent bg-accent px-3 py-1 text-xs font-semibold text-accent-fg shadow-sm'
-    : 'rounded-md border border-border bg-surface-elevated px-3 py-1 text-xs font-medium text-fg hover:bg-surface'
+    ? 'inline-flex min-h-9 items-center justify-center rounded-md border border-accent bg-accent px-3 py-1 text-sm font-semibold text-accent-fg shadow-sm'
+    : 'inline-flex min-h-9 items-center justify-center rounded-md border border-border bg-surface-elevated px-3 py-1 text-sm font-medium text-fg hover:bg-surface'
   return (
     <button
       type="button"

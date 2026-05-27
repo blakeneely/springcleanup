@@ -384,7 +384,7 @@ describe('SignUpSheet - read-only mode', () => {
   })
 })
 
-const THEMES: readonly Theme[] = ['light', 'dark', 'mando', 'boba']
+const THEMES: readonly Theme[] = ['default', 'bluey', 'mando', 'boba']
 
 describe('SignUpSheet - jest-axe a11y sweep', () => {
   for (const theme of THEMES) {

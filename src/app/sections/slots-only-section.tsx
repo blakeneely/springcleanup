@@ -3,20 +3,21 @@ import {
   SignUpSheet,
   useSignUpSheetState
 } from '@component-library/sign-up-sheet'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { currentUser, slotsOnlySheet } from '../demo-data'
+import { currentUser } from '../demo-data'
+import { mockApi } from '../mock-api'
 import { Section } from '../section'
+import { useFetchSlotsOnlySheet } from '../use-fetch-sheet'
 
 export function SlotsOnlySection() {
   const [theme, setTheme] = useState<Theme>('mando')
-  const [loading, setLoading] = useState(true)
-  const state = useSignUpSheetState(slotsOnlySheet, { currentUser })
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 800)
-    return () => clearTimeout(timeout)
-  }, [])
+  const { data, loading } = useFetchSlotsOnlySheet()
+  const state = useSignUpSheetState(data, {
+    currentUser,
+    onJoin: (slotId, user) => mockApi.joinSlot(slotId, user.id),
+    onLeave: (slotId, user) => mockApi.leaveSlot(slotId, user.id)
+  })
 
   return (
     <Section
@@ -31,7 +32,7 @@ export function SlotsOnlySection() {
         pendingSlotIds={state.pendingSlotIds}
         slotErrors={state.slotErrors}
         loading={loading}
-        loadingRowCount={5}
+        loadingRowCount={8}
         onSlotJoin={state.joinSlot}
         onSlotLeave={state.leaveSlot}
       />

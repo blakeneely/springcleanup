@@ -36,13 +36,17 @@ export function SlotRow({ slot, columns, className }: SlotRowProps) {
   }, [])
 
   const showOverflow = slot.participants.length > maxVisibleParticipants
-  const visibleParticipants = useMemo(
-    () =>
-      expanded
-        ? slot.participants
-        : slot.participants.slice(0, maxVisibleParticipants),
-    [expanded, maxVisibleParticipants, slot.participants]
-  )
+  const visibleParticipants = useMemo(() => {
+    if (expanded) return slot.participants
+    const baseVisible = slot.participants.slice(0, maxVisibleParticipants)
+    if (!currentUser) return baseVisible
+    if (baseVisible.some(p => p.id === currentUser.id)) return baseVisible
+    const userParticipant = slot.participants.find(
+      p => p.id === currentUser.id
+    )
+    if (!userParticipant) return baseVisible
+    return [userParticipant, ...baseVisible.slice(0, maxVisibleParticipants - 1)]
+  }, [currentUser, expanded, maxVisibleParticipants, slot.participants])
   const hiddenCount = slot.participants.length - maxVisibleParticipants
 
   const cells = columns.map(col => {

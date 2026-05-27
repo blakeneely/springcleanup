@@ -68,6 +68,12 @@ export function SlotAction({ slot, className }: SlotActionProps) {
   const remainingTemplate =
     remaining === 1 ? messages.slotsRemainingOne : messages.slotsRemainingOther
 
+  const baseButtonClass =
+    'inline-flex min-h-9 items-center justify-center gap-2 rounded-md border px-3 py-1 text-sm font-medium transition-colors aria-disabled:cursor-not-allowed aria-disabled:border-border aria-disabled:bg-fg-muted/20 aria-disabled:text-fg-muted'
+  const variantClass = userInSlot
+    ? 'border-accent bg-surface-elevated text-accent hover:bg-accent/10'
+    : 'border-border bg-accent text-accent-fg hover:bg-accent/90'
+
   return (
     <div className={className} data-slot-action-wrapper>
       <button
@@ -85,7 +91,7 @@ export function SlotAction({ slot, className }: SlotActionProps) {
         aria-busy={ariaBusy || undefined}
         aria-disabled={ariaDisabled || undefined}
         onClick={handleClick}
-        className="inline-flex min-h-9 items-center justify-center gap-2 rounded-md border border-border bg-accent px-3 py-1 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90 aria-disabled:cursor-not-allowed aria-disabled:bg-fg-muted/20 aria-disabled:text-fg-muted"
+        className={`${baseButtonClass} ${variantClass}`}
       >
         {ariaBusy ? (
           <span

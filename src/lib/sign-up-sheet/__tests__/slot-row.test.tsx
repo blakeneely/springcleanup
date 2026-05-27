@@ -138,6 +138,28 @@ describe('SlotRow', () => {
     ).toHaveAttribute('aria-expanded', 'true')
   })
 
+  it('keeps the current user visible even when they sit past the overflow cut', () => {
+    const others: Participant[] = Array.from({ length: 8 }, (_, i) => ({
+      id: `p${String(i)}`,
+      name: `Person ${String(i)}`
+    }))
+    const participants: Participant[] = [...others, { id: 'me', name: 'Me' }]
+    render(
+      <Harness currentUser={user} maxVisibleParticipants={6}>
+        <SlotTable columns={SLOT_ONLY}>
+          <SlotRow
+            slot={makeSlot({ capacity: 20, participants })}
+            columns={SLOT_ONLY}
+          />
+        </SlotTable>
+      </Harness>
+    )
+    expect(screen.getByText(/^You$/)).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Show 3 more participants/ })
+    ).toBeInTheDocument()
+  })
+
   it('omits the +N more button when participants do not exceed the cap', () => {
     render(
       <Harness currentUser={user} maxVisibleParticipants={6}>

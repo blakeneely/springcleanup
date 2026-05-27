@@ -34,6 +34,8 @@ The component is **fully controlled.** The caller owns `data`, `pendingSlotIds`,
 
 For demos and prototypes, **`useSignUpSheetState`** bundles data, pending, errors, and join/leave actions with a built-in simulated latency (default 600 ms). It accepts optional `onJoin` / `onLeave` async callbacks for real-server wiring; an opt-in `simulatedErrorRate` powers the error-state demo. The hook returns stable references — `useCallback` for actions, replaced (not mutated) state for sets and records — so consumers don't trip `react-perf` lint rules or re-render memoized children.
 
+Both the hook's `initialData` and `<SignUpSheet>`'s `data` prop accept `undefined`. The hook seeds itself the first time `initialData` becomes defined; the component renders the loading skeleton until then. This mirrors the `{ data, loading }` shape that real fetching layers (Apollo, React Query, SWR) return on first render, so consumers can pass `useQuery().data` straight in without a guard or a separate "loaded" subcomponent.
+
 Async safety lives at two layers: the action button reads `pendingSlotIds.has(slotId)` and renders as `aria-disabled` + `aria-busy` so rapid taps can't fire the callback, and the hook short-circuits in-flight slots even if the caller doesn't disable the button. A live region (`role="status"`, `aria-live="polite"`) inside the provider announces only the current user's own joins and leaves to avoid screen-reader spam on busy sheets.
 
 **At scale:** integrate directly with a mutation library rather than the demo hook, and move to optimistic updates once a rollback contract exists.
@@ -42,11 +44,11 @@ Async safety lives at two layers: the action button reads `pendingSlotIds.has(sl
 
 ## 3. Theming strategy
 
-Theming is **CSS custom properties** declared via Tailwind 4's `@theme` directive. The custom-property names (`--color-surface`, `--color-fg`, `--color-accent`, `--color-danger`, …) are the only contract every component knows. No component sees a literal hex.
+Theming is **CSS custom properties** declared via Tailwind 4's `@theme` directive. The custom-property names (`--color-surface`, `--color-fg`, `--color-accent`, `--color-marker`, `--color-danger`, …) are the only contract every component knows. No component sees a literal hex. Where two visually-similar elements would otherwise collapse to the same token (e.g. accent buttons and small recurring badges), the token surface adds a second slot rather than letting a theme reach for a per-element CSS override — `--color-marker` is the bg for the capacity pill so themes like `bluey` can scatter a secondary palette color across the page (her tan muzzle accent) without touching component code. Themes that don't need the split set `marker` equal to `accent`.
 
 Switching works at two scopes: a per-sheet `theme` prop that wraps the tree in `<div data-theme={theme}>`, and any ancestor with `data-theme="..."` (typically `document.documentElement`) cascading to every sheet below it.
 
-Four themes ship: `light`, `dark`, `mando`, `boba`. The flavor themes act as a token-contract stress test — `mando`'s danger color is the standard `#dc2626` red rather than a palette match, because `danger` is a _functional_ semantic ("this failed"), not a palette slot. The themes wouldn't survive that decision being wrong.
+Four themes ship: `default`, `bluey`, `mando`, `boba`. The flavor themes act as a token-contract stress test — `mando`'s danger color is the standard `#dc2626` red rather than a palette match, because `danger` is a _functional_ semantic ("this failed"), not a palette slot. The themes wouldn't survive that decision being wrong.
 
 A per-sheet `themeOverride` prop accepts `Partial<Tokens>` and applies them as inline CSS custom properties on the sheet root, overriding the named theme's tokens for that instance. Real sign-up sheets have per-event brand colors; `themeOverride` covers that without ballooning the API.
 

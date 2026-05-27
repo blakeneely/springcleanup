@@ -3,20 +3,21 @@ import {
   SignUpSheet,
   useSignUpSheetState
 } from '@component-library/sign-up-sheet'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { currentUser, sortByDateSheet } from '../demo-data'
+import { currentUser } from '../demo-data'
+import { mockApi } from '../mock-api'
 import { Section } from '../section'
+import { useFetchSortByDateSheet } from '../use-fetch-sheet'
 
 export function SortByDateSection() {
-  const [theme, setTheme] = useState<Theme>('light')
-  const [loading, setLoading] = useState(true)
-  const state = useSignUpSheetState(sortByDateSheet, { currentUser })
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 800)
-    return () => clearTimeout(timeout)
-  }, [])
+  const [theme, setTheme] = useState<Theme>('default')
+  const { data, loading } = useFetchSortByDateSheet()
+  const state = useSignUpSheetState(data, {
+    currentUser,
+    onJoin: (slotId, user) => mockApi.joinSlot(slotId, user.id),
+    onLeave: (slotId, user) => mockApi.leaveSlot(slotId, user.id)
+  })
 
   return (
     <Section
@@ -31,7 +32,7 @@ export function SortByDateSection() {
         pendingSlotIds={state.pendingSlotIds}
         slotErrors={state.slotErrors}
         loading={loading}
-        loadingRowCount={6}
+        loadingRowCount={8}
         timeZone="EDT"
         onSlotJoin={state.joinSlot}
         onSlotLeave={state.leaveSlot}

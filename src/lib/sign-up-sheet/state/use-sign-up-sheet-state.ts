@@ -36,11 +36,22 @@ export type UseSignUpSheetStateOptions = {
    * error-state card. Default 0.
    */
   simulatedErrorRate?: number
+  /**
+   * Per-slot error messages to seed on mount, keyed by slot ID. Lets a
+   * demo (or test) render in the error state without a prior failed
+   * action. Cleared by the hook the next time the user retries a slot.
+   */
+  initialSlotErrors?: Readonly<Record<string, string>>
 }
 
 export type UseSignUpSheetStateReturn = {
-  /** Current sheet data - passes straight through to `<SignUpSheet data>`. */
-  data: SignUpSheetData
+  /**
+   * Current sheet data. Undefined until `initialData` first arrives (mirrors
+   * Apollo / React Query's `data` field for async fetches). Pass straight
+   * through to `<SignUpSheet data>`, which renders the skeleton while
+   * undefined.
+   */
+  data: SignUpSheetData | undefined
   /** The signed-in viewer (echoed from options). */
   currentUser: CurrentUser
   /** Slot IDs with an in-flight join/leave mutation. */
@@ -56,7 +67,7 @@ export type UseSignUpSheetStateReturn = {
 }
 
 type LatestRef = {
-  data: SignUpSheetData
+  data: SignUpSheetData | undefined
   currentUser: CurrentUser
   onJoin?: (slotId: string, user: CurrentUser) => Promise<void>
   onLeave?: (slotId: string, user: CurrentUser) => Promise<void>
@@ -81,7 +92,7 @@ async function simulateAction(
 }
 
 export function useSignUpSheetState(
-  initialData: SignUpSheetData,
+  initialData: SignUpSheetData | undefined,
   options: UseSignUpSheetStateOptions
 ): UseSignUpSheetStateReturn {
   const {
@@ -89,16 +100,26 @@ export function useSignUpSheetState(
     onJoin,
     onLeave,
     simulatedLatencyMs = DEFAULT_LATENCY,
-    simulatedErrorRate = 0
+    simulatedErrorRate = 0,
+    initialSlotErrors
   } = options
 
-  const [data, setData] = useState<SignUpSheetData>(initialData)
+  const [data, setData] = useState<SignUpSheetData | undefined>(initialData)
   const [pendingIds, setPendingIds] = useState<readonly string[]>([])
   const [errorsMap, setErrorsMap] = useState<Readonly<Record<string, string>>>(
-    () => Object.freeze({})
+    () => Object.freeze({ ...(initialSlotErrors ?? {}) })
   )
   const initialDataRef = useRef(initialData)
+  const seededRef = useRef(initialData !== undefined)
   const inFlightRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    if (!seededRef.current && initialData !== undefined) {
+      seededRef.current = true
+      initialDataRef.current = initialData
+      setData(initialData)
+    }
+  }, [initialData])
 
   const latestRef = useRef<LatestRef>({
     data,
@@ -123,6 +144,7 @@ export function useSignUpSheetState(
   const joinSlot = useCallback((slotId: string) => {
     if (inFlightRef.current.has(slotId)) return
     const latest = latestRef.current
+    if (!latest.data) return
     const slot = findSlot(latest.data, slotId)
     if (!slot) return
     const user = latest.currentUser
@@ -144,8 +166,9 @@ export function useSignUpSheetState(
 
     void runAction
       .then(() => {
-        setData(prev =>
-          updateSlot(prev, slotId, s =>
+        setData(prev => {
+          if (!prev) return prev
+          return updateSlot(prev, slotId, s =>
             isUserInSlot(s, user.id)
               ? s
               : appendParticipant(s, {
@@ -154,7 +177,7 @@ export function useSignUpSheetState(
                   avatarUrl: user.avatarUrl
                 })
           )
-        )
+        })
       })
       .catch((err: unknown) => {
         const message = err instanceof Error ? err.message : 'Sign-up failed'
@@ -171,6 +194,7 @@ export function useSignUpSheetState(
   const leaveSlot = useCallback((slotId: string) => {
     if (inFlightRef.current.has(slotId)) return
     const latest = latestRef.current
+    if (!latest.data) return
     const slot = findSlot(latest.data, slotId)
     if (!slot) return
     const user = latest.currentUser
@@ -191,9 +215,12 @@ export function useSignUpSheetState(
 
     void runAction
       .then(() => {
-        setData(prev =>
-          updateSlot(prev, slotId, s => removeParticipantById(s, user.id))
-        )
+        setData(prev => {
+          if (!prev) return prev
+          return updateSlot(prev, slotId, s =>
+            removeParticipantById(s, user.id)
+          )
+        })
       })
       .catch((err: unknown) => {
         const message = err instanceof Error ? err.message : 'Leave failed'

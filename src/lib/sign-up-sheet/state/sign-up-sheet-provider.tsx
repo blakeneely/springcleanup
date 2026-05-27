@@ -87,6 +87,8 @@ const TOKEN_VAR_BY_KEY: Record<keyof ThemeOverride, string> = {
   headlineFg: '--color-headline-fg',
   accent: '--color-accent',
   accentFg: '--color-accent-fg',
+  marker: '--color-marker',
+  markerFg: '--color-marker-fg',
   success: '--color-success',
   danger: '--color-danger',
   border: '--color-border'

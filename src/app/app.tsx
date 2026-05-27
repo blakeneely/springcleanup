@@ -3,7 +3,7 @@ import { EdgeCasesSection, SlotsOnlySection, SortByDateSection } from './section
 
 export function App() {
   return (
-    <main className="min-h-full bg-surface text-fg" data-theme="light">
+    <main className="min-h-full bg-surface text-fg" data-theme="default">
       <header className="w-full border-b border-border bg-surface-elevated px-4 py-10 text-fg md:px-12 md:py-12">
         <h1 className="text-3xl font-semibold text-fg md:text-4xl">
           Sign-Up Sheet Component System

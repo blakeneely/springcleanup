@@ -80,7 +80,7 @@ export function CapacityPill({
   return (
     <span
       data-capacity-state="open"
-      className={`${base} bg-accent text-accent-fg ${className ?? ''}`}
+      className={`${base} bg-marker text-marker-fg ${className ?? ''}`}
     >
       {filledOfTotal} · {remainingText}
     </span>

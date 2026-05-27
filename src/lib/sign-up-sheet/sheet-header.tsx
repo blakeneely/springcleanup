@@ -40,7 +40,7 @@ export function SheetHeader({
           title
         )}
       </h1>
-      {description ? (
+      {loading || description ? (
         <p className="text-sm opacity-90">
           {loading ? (
             <span

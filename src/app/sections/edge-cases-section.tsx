@@ -22,6 +22,11 @@ import { Section } from '../section'
 
 const COMPOUND_COLUMNS: readonly SlotColumn[] = ['slot']
 
+const readOnlyPreviewSheet = {
+  ...slotsOnlySheet,
+  slots: slotsOnlySheet.slots.slice(0, 4)
+}
+
 function ReadOnlyCard() {
   return (
     <article
@@ -32,7 +37,7 @@ function ReadOnlyCard() {
         Read-only mode
       </div>
       <div className="p-3">
-        <SignUpSheet data={slotsOnlySheet} />
+        <SignUpSheet data={readOnlyPreviewSheet} />
       </div>
     </article>
   )
@@ -55,7 +60,8 @@ function ErrorStateCard() {
     {
       currentUser,
       simulatedLatencyMs: 100,
-      simulatedErrorRate: 1
+      simulatedErrorRate: 1,
+      initialSlotErrors: { 'fail-1': 'Simulated failure' }
     }
   )
   return (
@@ -187,7 +193,7 @@ function OverCapacityCard() {
 
 function CompoundApiCard() {
   const state = useSignUpSheetState(compoundDemoSheet, { currentUser })
-  if (state.data.type !== 'slots-only') return null
+  if (!state.data || state.data.type !== 'slots-only') return null
   return (
     <article
       data-edge-card="compound"
@@ -244,11 +250,11 @@ export function EdgeCasesSection() {
       onThemeChange={setTheme}
       variant="cards"
     >
-      <div className="grid gap-4 lg:grid-cols-2">
-        <ReadOnlyCard />
-        <PendingStateCard />
-        <ErrorStateCard />
+      <div className="columns-1 gap-4 [&>*]:mb-4 [&>*]:break-inside-avoid lg:columns-2">
         <LoadingStateCard />
+        <ErrorStateCard />
+        <PendingStateCard />
+        <ReadOnlyCard />
         <EmptySheetCard />
         <EmptyGroupCard />
         <OverCapacityCard />

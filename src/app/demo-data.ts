@@ -61,6 +61,21 @@ export const sortByDateSheet: SortByDateSheet = {
           time: '1:00 PM-3:00 PM',
           location: 'Playground',
           participants: []
+        },
+        {
+          id: 'apr-12-afternoon-checkin',
+          label: 'Volunteer check-in table',
+          description: 'Greet arrivals and hand out gloves and water.',
+          capacity: 3,
+          weekday: 'Saturday',
+          date: 'Apr 12',
+          time: '8:30 AM-12:30 PM',
+          location: 'Main entrance',
+          participants: [
+            { id: 'p-rosa', name: 'Rosa Beaumont' },
+            { id: 'p-sven', name: 'Sven Halvorsen' },
+            { id: 'p-tova', name: 'Tova Lindqvist' }
+          ]
         }
       ]
     },
@@ -97,8 +112,21 @@ export const sortByDateSheet: SortByDateSheet = {
           location: 'South meadow',
           participants: [
             { id: 'p-lior', name: 'Lior Bensimon' },
-            { id: 'p-mei', name: 'Mei Sato-Reyes' }
+            { id: 'p-mei', name: 'Mei Sato-Reyes' },
+            { id: 'p-yara', name: 'Yara Okonkwo' },
+            { id: 'p-zane', name: 'Zane Chen' }
           ]
+        },
+        {
+          id: 'apr-19-afternoon-photo',
+          label: 'Event photography',
+          description: 'Capture before/after shots for the newsletter.',
+          capacity: 2,
+          weekday: 'Saturday',
+          date: 'Apr 19',
+          time: '10:00 AM-2:00 PM',
+          location: 'Roaming',
+          participants: []
         }
       ]
     },
@@ -116,6 +144,32 @@ export const sortByDateSheet: SortByDateSheet = {
           time: '9:00 AM-1:00 PM',
           location: 'Community garden',
           participants: [{ id: 'p-nik', name: 'Nik Petraitis' }]
+        },
+        {
+          id: 'apr-26-afternoon-paint',
+          label: 'Repaint trail markers',
+          description: 'Touch up faded blazes along the loop.',
+          capacity: 4,
+          weekday: 'Saturday',
+          date: 'Apr 26',
+          time: '1:00 PM-4:00 PM',
+          location: 'North loop',
+          participants: [
+            { id: 'p-ursa', name: 'Ursa Bjornsen' },
+            { id: 'p-vance', name: 'Vance Okafor' },
+            { id: 'p-wren', name: 'Wren Castillo' },
+            { id: 'p-xan', name: 'Xan Petrov' }
+          ]
+        },
+        {
+          id: 'apr-26-afternoon-cleanup',
+          label: 'Pack up and final sweep',
+          capacity: 5,
+          weekday: 'Saturday',
+          date: 'Apr 26',
+          time: '4:00 PM-5:30 PM',
+          location: 'Community garden',
+          participants: []
         }
       ]
     }
@@ -163,6 +217,43 @@ export const slotsOnlySheet: SlotsOnlySheet = {
       participants: [
         { id: 'p-elin', name: 'Elin Sato' },
         { id: 'p-fern', name: 'Fern Gallagher' }
+      ]
+    },
+    {
+      id: 'supply-sunscreen',
+      label: 'Sunscreen (SPF 30+)',
+      description: 'Spray bottles preferred for easy sharing.',
+      capacity: 3,
+      participants: [
+        { id: 'p-greta', name: 'Greta Mahlangu' },
+        { id: 'p-hugo', name: 'Hugo Park' },
+        { id: 'p-iris', name: 'Iris Vandermeer' }
+      ]
+    },
+    {
+      id: 'supply-coolers',
+      label: 'Coolers with ice',
+      description: 'For drinks at the rest station.',
+      capacity: 4,
+      participants: [{ id: 'p-jules', name: 'Jules Tan', quantity: 2 }]
+    },
+    {
+      id: 'supply-papertowels',
+      label: 'Paper towel rolls',
+      capacity: 8,
+      participants: [
+        { id: 'p-kim', name: 'Kim Ouellette', quantity: 2 },
+        { id: 'p-lior', name: 'Lior Bensimon' }
+      ]
+    },
+    {
+      id: 'supply-clipboards',
+      label: 'Sharpies and clipboards',
+      description: 'For check-in tables.',
+      capacity: 2,
+      participants: [
+        { id: 'p-mei', name: 'Mei Sato-Reyes' },
+        { id: 'p-nik', name: 'Nik Petraitis' }
       ]
     }
   ]

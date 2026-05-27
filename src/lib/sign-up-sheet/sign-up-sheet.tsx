@@ -21,9 +21,11 @@ export type SignUpSheetProps = {
   /**
    * The sign-up sheet payload. Its `type` discriminator selects the
    * matching layout (`sort-by-date` or `slots-only`). Callers own this -
-   * update it in response to `onSlotJoin` / `onSlotLeave` callbacks.
+   * update it in response to `onSlotJoin` / `onSlotLeave` callbacks. May
+   * be undefined while the consumer is fetching it; pair with
+   * `loading={true}` to render the skeleton until it arrives.
    */
-  data: SignUpSheetData
+  data?: SignUpSheetData
   /**
    * The signed-in viewer. When omitted, the sheet renders in read-only
    * mode: no action buttons, and participants are not highlighted as "You".
@@ -170,12 +172,12 @@ export function SignUpSheet({
       themeOverride={themeOverride}
       className={className}
     >
-      {loading ? (
+      {loading || !data ? (
         <>
           <SheetHeader
             loading
-            title={data.title}
-            description={data.description}
+            title={data?.title ?? ''}
+            description={data?.description}
           />
           <SignUpSheetSkeleton rowCount={loadingRowCount} />
         </>

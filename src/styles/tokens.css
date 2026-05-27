@@ -1,6 +1,6 @@
 /*
  * Design tokens for the sign-up-sheet component system.
- * Light is the default (declared at :root). Other themes scope via [data-theme="..."].
+ * The `default` theme is declared at :root. Other themes scope via [data-theme="..."].
  * Tailwind 4's @theme directive auto-generates utilities (bg-surface, text-fg, etc.).
  */
 
@@ -13,6 +13,8 @@
   --color-headline-fg: #ffffff;
   --color-accent: #1a91b0;
   --color-accent-fg: #ffffff;
+  --color-marker: #1a91b0;
+  --color-marker-fg: #ffffff;
   --color-success: #6f8a1f;
   --color-danger: #dc2626;
   --color-border: #e5e0db;
@@ -36,7 +38,7 @@
 }
 
 :root,
-[data-theme='light'] {
+[data-theme='default'] {
   --color-surface: #faf7f4;
   --color-surface-elevated: #ffffff;
   --color-fg: #1a1a1a;
@@ -45,6 +47,8 @@
   --color-headline-fg: #ffffff;
   --color-accent: #1a91b0;
   --color-accent-fg: #ffffff;
+  --color-marker: #1a91b0;
+  --color-marker-fg: #ffffff;
   --color-success: #6f8a1f;
   --color-danger: #dc2626;
   --color-border: #e5e0db;
@@ -57,25 +61,27 @@
   --color-avatar-6: #5a6cb0;
 }
 
-[data-theme='dark'] {
-  --color-surface: #1d1b20;
-  --color-surface-elevated: #2a2421;
-  --color-fg: #f8f0eb;
-  --color-fg-muted: #c1b3aa;
-  --color-headline: #f89f43;
-  --color-headline-fg: #1d1b20;
-  --color-accent: #5dbed8;
-  --color-accent-fg: #1d1b20;
-  --color-success: #acc034;
-  --color-danger: #f87171;
-  --color-border: #3a302c;
+[data-theme='bluey'] {
+  --color-surface: #d2ebff;
+  --color-surface-elevated: #ffffff;
+  --color-fg: #2b2c41;
+  --color-fg-muted: #404066;
+  --color-headline: #404066;
+  --color-headline-fg: #d2ebff;
+  --color-accent: #88cafc;
+  --color-accent-fg: #2b2c41;
+  --color-marker: #edcc6f;
+  --color-marker-fg: #2b2c41;
+  --color-success: #6f8a1f;
+  --color-danger: #dc2626;
+  --color-border: #88cafc;
 
-  --color-avatar-1: #e89070;
-  --color-avatar-2: #5dbed8;
-  --color-avatar-3: #cc92c0;
-  --color-avatar-4: #a8c34b;
-  --color-avatar-5: #e3b04a;
-  --color-avatar-6: #8a9bd0;
+  --color-avatar-1: #88cafc;
+  --color-avatar-2: #edcc6f;
+  --color-avatar-3: #404066;
+  --color-avatar-4: #2b2c41;
+  --color-avatar-5: #ed8e6f;
+  --color-avatar-6: #6b9bd1;
 }
 
 [data-theme='mando'] {
@@ -87,6 +93,8 @@
   --color-headline-fg: #fff8f1;
   --color-accent: #889273;
   --color-accent-fg: #fff8f1;
+  --color-marker: #889273;
+  --color-marker-fg: #fff8f1;
   --color-success: #889273;
   --color-danger: #dc2626;
   --color-border: #a6918d;
@@ -108,6 +116,8 @@
   --color-headline-fg: #e8dcc6;
   --color-accent: #d4a82c;
   --color-accent-fg: #1f1d18;
+  --color-marker: #d4a82c;
+  --color-marker-fg: #1f1d18;
   --color-success: #7a8a4d;
   --color-danger: #890909;
   --color-border: #998c6e;
@@ -119,3 +129,4 @@
   --color-avatar-5: #7a8a4d;
   --color-avatar-6: #998c6e;
 }
+

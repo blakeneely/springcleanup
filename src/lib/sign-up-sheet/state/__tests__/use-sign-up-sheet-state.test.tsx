@@ -66,7 +66,7 @@ describe('useSignUpSheetState - join flow', () => {
       expect(result.current.pendingSlotIds.has('slot-1')).toBe(false)
     })
 
-    if (result.current.data.type !== 'sort-by-date') {
+    if (!result.current.data || result.current.data.type !== 'sort-by-date') {
       throw new Error('type widened')
     }
     const slot = result.current.data.slotGroups[0].slots[0]
@@ -125,7 +125,7 @@ describe('useSignUpSheetState - join flow', () => {
       expect(result.current.pendingSlotIds.has('slot-1')).toBe(false)
     })
 
-    if (result.current.data.type !== 'sort-by-date') {
+    if (!result.current.data || result.current.data.type !== 'sort-by-date') {
       throw new Error('type widened')
     }
     const slot = result.current.data.slotGroups[0].slots[0]
@@ -154,7 +154,7 @@ describe('useSignUpSheetState - leave flow', () => {
       expect(result.current.pendingSlotIds.has('slot-1')).toBe(false)
     })
 
-    if (result.current.data.type !== 'sort-by-date') {
+    if (!result.current.data || result.current.data.type !== 'sort-by-date') {
       throw new Error('type widened')
     }
     expect(
@@ -195,7 +195,7 @@ describe('useSignUpSheetState - error injection', () => {
       expect(result.current.slotErrors['slot-1']).toBeTruthy()
     })
 
-    if (result.current.data.type !== 'sort-by-date') {
+    if (!result.current.data || result.current.data.type !== 'sort-by-date') {
       throw new Error('type widened')
     }
     expect(

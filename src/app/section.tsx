@@ -25,7 +25,7 @@ export function Section({
       data-demo-section={variant}
       className="bg-surface px-4 pt-12 pb-24 md:px-8 md:pt-16 md:pb-32"
     >
-      <div className="mx-auto flex max-w-5xl flex-col gap-6">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-6">
         <header className="flex flex-col gap-4">
           <div>
             <h2 className="text-2xl font-semibold text-headline">{title}</h2>

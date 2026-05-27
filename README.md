@@ -83,6 +83,28 @@ const state = useSignUpSheetState(initialData, {
 })
 ```
 
+The demo app uses exactly this pattern. `src/app/mock-api.ts` exposes a
+`mockApi` module that mirrors a real backend with simulated latency — both
+the initial sheet fetch (`fetchSortByDateSheet`, `fetchSlotsOnlySheet`) and
+the per-slot mutations (`joinSlot`, `leaveSlot`). `src/app/use-fetch-sheet.ts`
+wraps the fetch in an Apollo-style hook (`{ data, loading }`), and each
+section combines that with `useSignUpSheetState` for a single, flat render:
+
+```tsx
+const { data, loading } = useFetchSortByDateSheet()
+const state = useSignUpSheetState(data, {
+  currentUser,
+  onJoin: (slotId, user) => mockApi.joinSlot(slotId, user.id),
+  onLeave: (slotId, user) => mockApi.leaveSlot(slotId, user.id),
+})
+return <SignUpSheet data={state.data} loading={loading} ... />
+```
+
+`useSignUpSheetState` accepts `initialData` as `undefined` and seeds itself
+once the data arrives, so the section never needs to branch on the loading
+state. Swap each `mockApi.*` call for a real `fetch` and nothing else in the
+consumer changes.
+
 ### 2. Read-only mode
 
 Omit `currentUser` to render the sheet for an unauthenticated viewer.
@@ -153,16 +175,17 @@ import {
 ## Theming
 
 Tokens are CSS custom properties declared via Tailwind 4's `@theme` directive
-and scoped by `[data-theme="..."]`. Four themes ship: `light` (default),
-`dark`, `mando`, and `boba`. Adding a fifth is a CSS edit — drop a new
-`[data-theme="..."]` block into `src/styles/tokens.css` with the same
-custom-property names.
+and scoped by `[data-theme="..."]`. Four themes ship: `default`, `bluey` (the
+Heeler palette from the show), `mando`, and `boba`. `default` is the palette
+applied at `:root`, so consumers who never set `data-theme` get it for free.
+Adding a fifth is a CSS edit — drop a new `[data-theme="..."]` block into
+`src/styles/tokens.css` with the same custom-property names.
 
 Themes apply at two scopes:
 
 - **Per-sheet** — `<SignUpSheet theme="mando" ... />` wraps the rendered tree
   in `<div data-theme="mando">`.
-- **Page-wide** — set `document.documentElement.dataset.theme = 'dark'` and
+- **Page-wide** — set `document.documentElement.dataset.theme = 'bluey'` and
   every sheet without an explicit `theme` prop inherits it.
 
 For per-event brand colors without authoring a new named theme, pass
@@ -205,8 +228,10 @@ src/
       index.ts
     app.tsx                            three-section demo page
     demo-data.ts                       realistic + edge-case sheets
+    mock-api.ts                        fake server module (fetch + mutations)
     section.tsx                        demo-only layout wrapper
     theme-button-row.tsx               theme switcher control
+    use-fetch-sheet.ts                 Apollo-style fetch hook (data + loading)
   lib/
     primitives/                        @component-library/primitives
       __tests__/
