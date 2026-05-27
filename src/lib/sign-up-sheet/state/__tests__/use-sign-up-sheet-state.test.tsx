@@ -34,7 +34,7 @@ function makeSortByDate(): SignUpSheetData {
   }
 }
 
-describe('useSignUpSheetState — initial state', () => {
+describe('useSignUpSheetState - initial state', () => {
   it('mirrors initialData on first render', () => {
     const initial = makeSortByDate()
     const { result } = renderHook(() =>
@@ -47,7 +47,7 @@ describe('useSignUpSheetState — initial state', () => {
   })
 })
 
-describe('useSignUpSheetState — join flow', () => {
+describe('useSignUpSheetState - join flow', () => {
   it('appends the current user on resolve and clears pending', async () => {
     const { result } = renderHook(() =>
       useSignUpSheetState(makeSortByDate(), {
@@ -133,7 +133,7 @@ describe('useSignUpSheetState — join flow', () => {
   })
 })
 
-describe('useSignUpSheetState — leave flow', () => {
+describe('useSignUpSheetState - leave flow', () => {
   it('removes the current user on resolve', async () => {
     const initial = makeSortByDate()
     if (initial.type !== 'sort-by-date') throw new Error('type widened')
@@ -177,7 +177,7 @@ describe('useSignUpSheetState — leave flow', () => {
   })
 })
 
-describe('useSignUpSheetState — error injection', () => {
+describe('useSignUpSheetState - error injection', () => {
   it('records the slot error and leaves participants unchanged', async () => {
     const { result } = renderHook(() =>
       useSignUpSheetState(makeSortByDate(), {
@@ -234,7 +234,7 @@ describe('useSignUpSheetState — error injection', () => {
   })
 })
 
-describe('useSignUpSheetState — onJoin / onLeave wiring', () => {
+describe('useSignUpSheetState - onJoin / onLeave wiring', () => {
   it('uses caller-supplied onJoin instead of the simulated path', async () => {
     let receivedSlotId: string | undefined
     let receivedUserId: string | undefined
@@ -279,7 +279,7 @@ describe('useSignUpSheetState — onJoin / onLeave wiring', () => {
   })
 })
 
-describe('useSignUpSheetState — reset', () => {
+describe('useSignUpSheetState - reset', () => {
   it('returns state to initialData and clears pending + errors', async () => {
     const initial = makeSortByDate()
     const { result } = renderHook(() =>
@@ -307,7 +307,7 @@ describe('useSignUpSheetState — reset', () => {
   })
 })
 
-describe('useSignUpSheetState — stable references', () => {
+describe('useSignUpSheetState - stable references', () => {
   it('keeps joinSlot / leaveSlot / reset stable across re-renders', () => {
     const { result, rerender } = renderHook(() =>
       useSignUpSheetState(makeSortByDate(), { currentUser })

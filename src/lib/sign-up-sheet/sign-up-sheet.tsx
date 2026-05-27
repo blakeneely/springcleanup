@@ -4,6 +4,7 @@ import type { CurrentUser } from '../primitives/types'
 import { SlotsOnlyLayout } from './layouts/slots-only-layout'
 import { SortByDateLayout } from './layouts/sort-by-date-layout'
 import { format } from './messages/format'
+import { SheetHeader } from './sheet-header'
 import { SignUpSheetSkeleton } from './sign-up-sheet-skeleton'
 import { useSignUpSheetContext } from './state/context'
 import { clampedRemaining, getAllSlots } from './state/helpers'
@@ -19,7 +20,7 @@ import type {
 export type SignUpSheetProps = {
   /**
    * The sign-up sheet payload. Its `type` discriminator selects the
-   * matching layout (`sort-by-date` or `slots-only`). Callers own this —
+   * matching layout (`sort-by-date` or `slots-only`). Callers own this -
    * update it in response to `onSlotJoin` / `onSlotLeave` callbacks.
    */
   data: SignUpSheetData
@@ -170,7 +171,14 @@ export function SignUpSheet({
       className={className}
     >
       {loading ? (
-        <SignUpSheetSkeleton rowCount={loadingRowCount} />
+        <>
+          <SheetHeader
+            loading
+            title={data.title}
+            description={data.description}
+          />
+          <SignUpSheetSkeleton rowCount={loadingRowCount} />
+        </>
       ) : (
         <>
           <SelfActionAnnouncer data={data} />

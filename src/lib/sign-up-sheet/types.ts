@@ -1,7 +1,7 @@
 import type { Participant } from '../primitives/types'
 
 export type SlotData = {
-  /** Stable identifier — used as React key and join/leave callback arg. */
+  /** Stable identifier - used as React key and join/leave callback arg. */
   id: string
   /** Primary slot label (e.g. `'Trail clearing'`). */
   label: string
@@ -50,7 +50,7 @@ export type SlotsOnlySheet = {
   title: string
   /** Optional sheet description. */
   description?: string
-  /** Flat list of slots — no date grouping. */
+  /** Flat list of slots - no date grouping. */
   slots: SlotData[]
 }
 
@@ -60,7 +60,7 @@ export type SlotsOnlySheet = {
  */
 export type SignUpSheetData = SortByDateSheet | SlotsOnlySheet
 
-/** Named theme — selects a set of `[data-theme="..."]` token values. */
+/** Named theme - selects a set of `[data-theme="..."]` token values. */
 export type Theme = 'light' | 'dark' | 'mando' | 'boba'
 
 /**

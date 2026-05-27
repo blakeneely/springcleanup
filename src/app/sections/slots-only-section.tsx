@@ -3,14 +3,21 @@ import {
   SignUpSheet,
   useSignUpSheetState
 } from '@component-library/sign-up-sheet'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { currentUser, slotsOnlySheet } from '../demo-data'
 import { Section } from '../section'
 
 export function SlotsOnlySection() {
   const [theme, setTheme] = useState<Theme>('mando')
+  const [loading, setLoading] = useState(true)
   const state = useSignUpSheetState(slotsOnlySheet, { currentUser })
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 800)
+    return () => clearTimeout(timeout)
+  }, [])
+
   return (
     <Section
       title="Slots-only layout"
@@ -23,6 +30,8 @@ export function SlotsOnlySection() {
         currentUser={state.currentUser}
         pendingSlotIds={state.pendingSlotIds}
         slotErrors={state.slotErrors}
+        loading={loading}
+        loadingRowCount={5}
         onSlotJoin={state.joinSlot}
         onSlotLeave={state.leaveSlot}
       />

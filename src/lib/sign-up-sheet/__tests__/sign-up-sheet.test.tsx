@@ -51,7 +51,7 @@ function makeSortByDate(): SortByDateSheet {
             capacity: 2,
             weekday: 'Sat',
             date: 'Apr 12',
-            time: '9–11',
+            time: '9-11',
             location: 'Field',
             participants: []
           }
@@ -72,7 +72,7 @@ function makeSortByDateLarge(sectionCount: number): SortByDateSheet {
         capacity: 5,
         weekday: 'Sat',
         date: `Apr ${String(i + 1)}`,
-        time: '9–11',
+        time: '9-11',
         location: 'X',
         participants: []
       }
@@ -100,7 +100,7 @@ function makeSlotsOnly(): SlotsOnlySheet {
   }
 }
 
-describe('SignUpSheet — dispatch', () => {
+describe('SignUpSheet - dispatch', () => {
   it('renders the sort-by-date layout when data.type is sort-by-date', () => {
     render(<SignUpSheet data={makeSortByDate()} />)
     expect(
@@ -116,7 +116,7 @@ describe('SignUpSheet — dispatch', () => {
   })
 })
 
-describe('SignUpSheet — join / leave flow (via callbacks)', () => {
+describe('SignUpSheet - join / leave flow (via callbacks)', () => {
   it('fires onSlotJoin when the user clicks an available slot', async () => {
     const onSlotJoin = vi.fn()
     render(
@@ -158,8 +158,8 @@ describe('SignUpSheet — join / leave flow (via callbacks)', () => {
   })
 })
 
-describe('SignUpSheet — pending state', () => {
-  it('renders Signing up… with aria-busy when slot is in pendingSlotIds', () => {
+describe('SignUpSheet - pending state', () => {
+  it('renders Signing up... with aria-busy when slot is in pendingSlotIds', () => {
     render(
       <SignUpSheet
         data={makeSortByDate()}
@@ -173,7 +173,7 @@ describe('SignUpSheet — pending state', () => {
   })
 })
 
-describe('SignUpSheet — capacity / quantity arithmetic', () => {
+describe('SignUpSheet - capacity / quantity arithmetic', () => {
   it('respects participant.quantity when computing remaining', () => {
     render(<SignUpSheet data={makeSlotsOnly()} currentUser={user} />)
     expect(
@@ -191,7 +191,7 @@ describe('SignUpSheet — capacity / quantity arithmetic', () => {
   })
 })
 
-describe('SignUpSheet — theme prop', () => {
+describe('SignUpSheet - theme prop', () => {
   it('sets data-theme on the sheet root when theme is provided', () => {
     render(
       <SignUpSheet data={makeSortByDate()} currentUser={user} theme="mando" />
@@ -230,7 +230,7 @@ describe('SignUpSheet — theme prop', () => {
   })
 })
 
-describe('SignUpSheet — messages override', () => {
+describe('SignUpSheet - messages override', () => {
   it('renders consumer-supplied templates in place of defaults', () => {
     render(
       <SignUpSheet
@@ -245,7 +245,7 @@ describe('SignUpSheet — messages override', () => {
   })
 })
 
-describe('SignUpSheet — loading state', () => {
+describe('SignUpSheet - loading state', () => {
   it('renders the skeleton with aria-busy when loading is true', () => {
     render(<SignUpSheet data={makeSortByDate()} loading />)
     const status = screen.getByRole('status', { busy: true })
@@ -254,7 +254,7 @@ describe('SignUpSheet — loading state', () => {
   })
 })
 
-describe('SignUpSheet — accordion default', () => {
+describe('SignUpSheet - accordion default', () => {
   it('opens all sections when sectionCount is at or under threshold', () => {
     render(
       <SignUpSheet
@@ -288,7 +288,7 @@ describe('SignUpSheet — accordion default', () => {
   })
 })
 
-describe('SignUpSheet — overflow expander', () => {
+describe('SignUpSheet - overflow expander', () => {
   it('shows the first N participants and a +K more button', async () => {
     const data: SortByDateSheet = makeSortByDate()
     data.slotGroups[0].slots[0].capacity = 20
@@ -307,8 +307,8 @@ describe('SignUpSheet — overflow expander', () => {
   })
 })
 
-describe('SignUpSheet — live region', () => {
-  it('announces only the current user’s own join in the polite region', async () => {
+describe('SignUpSheet - live region', () => {
+  it("announces only the current user's own join in the polite region", async () => {
     function Wrapper({ data }: { data: SignUpSheetData }) {
       return <SignUpSheet data={data} currentUser={user} timeZone="EDT" />
     }
@@ -353,7 +353,7 @@ describe('SignUpSheet — live region', () => {
   })
 })
 
-describe('SignUpSheet — compound API parity', () => {
+describe('SignUpSheet - compound API parity', () => {
   it('manually composed children produce the same observable behavior as the dispatcher', () => {
     const data = makeSlotsOnly()
     render(
@@ -377,7 +377,7 @@ describe('SignUpSheet — compound API parity', () => {
   })
 })
 
-describe('SignUpSheet — read-only mode', () => {
+describe('SignUpSheet - read-only mode', () => {
   it('omits action buttons when currentUser is absent', () => {
     render(<SignUpSheet data={makeSlotsOnly()} />)
     expect(screen.queryByRole('button', { name: /Sign up|Leave/ })).toBeNull()
@@ -386,7 +386,7 @@ describe('SignUpSheet — read-only mode', () => {
 
 const THEMES: readonly Theme[] = ['light', 'dark', 'mando', 'boba']
 
-describe('SignUpSheet — jest-axe a11y sweep', () => {
+describe('SignUpSheet - jest-axe a11y sweep', () => {
   for (const theme of THEMES) {
     it(`passes axe in the ${theme} theme`, async () => {
       const data = makeSortByDate()
@@ -400,7 +400,7 @@ describe('SignUpSheet — jest-axe a11y sweep', () => {
   }
 })
 
-describe('SignUpSheet — column rendering (regression)', () => {
+describe('SignUpSheet - column rendering (regression)', () => {
   it('renders sort-by-date columns in the header row', () => {
     render(<SignUpSheet data={makeSortByDate()} currentUser={user} />)
     const header = document.querySelector(

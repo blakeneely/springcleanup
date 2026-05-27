@@ -100,7 +100,7 @@ describe('SlotAction', () => {
     expect(btn).toHaveAttribute('aria-disabled', 'true')
   })
 
-  it('shows "Signing up…" with aria-busy/aria-disabled when pending join', () => {
+  it('shows "Signing up..." with aria-busy/aria-disabled when pending join', () => {
     const pending = new Set(['slot-1'])
     render(
       <Harness currentUser={user} pendingSlotIds={pending}>
@@ -112,7 +112,7 @@ describe('SlotAction', () => {
     expect(btn).toHaveAttribute('aria-disabled', 'true')
   })
 
-  it('shows "Leaving…" with aria-busy/aria-disabled when pending leave', () => {
+  it('shows "Leaving..." with aria-busy/aria-disabled when pending leave', () => {
     const pending = new Set(['slot-1'])
     render(
       <Harness currentUser={user} pendingSlotIds={pending}>

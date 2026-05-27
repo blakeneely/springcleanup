@@ -9,8 +9,8 @@ export const defaultMessages: Messages = {
   signUp: 'Sign up',
   signUpFull: 'Sign up (full)',
   leave: 'Leave',
-  signingUp: 'Signing up…',
-  leaving: 'Leaving…',
+  signingUp: 'Signing up...',
+  leaving: 'Leaving...',
   joinError: "Couldn't sign up — try again",
   leaveError: "Couldn't leave — try again",
   signedUpAnnouncement: 'Signed up for {slotLabel}. {remaining}',
@@ -20,6 +20,6 @@ export const defaultMessages: Messages = {
   emptySheet: 'This sign-up sheet has no slots yet.',
   emptyGroup: 'No slots in this group.',
   emptyDateGroup: 'No slots on this date.',
-  loadingSheet: 'Loading sign-up sheet…',
+  loadingSheet: 'Loading sign-up sheet...',
   you: 'You'
 }

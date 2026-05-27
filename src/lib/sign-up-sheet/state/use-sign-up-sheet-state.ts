@@ -31,7 +31,7 @@ export type UseSignUpSheetStateOptions = {
    */
   simulatedLatencyMs?: number
   /**
-   * Probability (0–1) that the simulated action throws, producing an
+   * Probability (0-1) that the simulated action throws, producing an
    * inline error row instead of a state mutation. Used by the demo's
    * error-state card. Default 0.
    */
@@ -39,7 +39,7 @@ export type UseSignUpSheetStateOptions = {
 }
 
 export type UseSignUpSheetStateReturn = {
-  /** Current sheet data — passes straight through to `<SignUpSheet data>`. */
+  /** Current sheet data - passes straight through to `<SignUpSheet data>`. */
   data: SignUpSheetData
   /** The signed-in viewer (echoed from options). */
   currentUser: CurrentUser

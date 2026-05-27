@@ -24,7 +24,7 @@ export type DateSectionProps = {
    * `collapseThreshold` from context.
    */
   forceOpen?: boolean
-  /** Section body — typically a `<SlotTable>`. */
+  /** Section body - typically a `<SlotTable>`. */
   children: ReactNode
   /** Optional extra classes applied to the `<section>` wrapper. */
   className?: string

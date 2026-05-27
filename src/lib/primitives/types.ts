@@ -1,5 +1,5 @@
 export type Participant = {
-  /** Stable identifier — drives the avatar hash color and join/leave logic. */
+  /** Stable identifier - drives the avatar hash color and join/leave logic. */
   id: string
   /** Display name shown on the chip and read aloud by screen readers. */
   name: string
@@ -16,7 +16,7 @@ export type Participant = {
 }
 
 export type CurrentUser = {
-  /** Stable identifier — matched against `Participant.id` to detect membership. */
+  /** Stable identifier - matched against `Participant.id` to detect membership. */
   id: string
   /** Display name; used for the live announcer and chip label. */
   name: string
